@@ -15,12 +15,11 @@ RUN set -eux; \
 	mkdir -p /etc/postgresql/12/main
 
 RUN apt update
-RUN apt install -y sudo bash bash-completion lsb-release wget gnupg2 tzdata
-#RUN apt install -y wget gnupg2 tzdata
+RUN apt install -y sudo bash bash-completion lsb-release wget gnupg2 tzdata mc nano
 RUN echo deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main >  /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update
-RUN apt install -y postgresql-12 mc nano
+RUN apt install -y postgresql-12
 RUN sed -i -e"s/^#listen_addresses =.*$/listen_addresses = '*'/" /etc/postgresql/12/main/postgresql.conf
 RUN echo "host    all    all    0.0.0.0/0    md5" >> /etc/postgresql/12/main//pg_hba.conf
 RUN pg_ctlcluster 12 main start && \
