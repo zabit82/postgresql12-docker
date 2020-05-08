@@ -4,8 +4,8 @@ RUN mkdir -p /docker-app/
 WORKDIR /docker-app/
 COPY alter_user.sql /tmp
 
-ENV TZ Europe/Moscow
-
+ENV TZ=Europe/Moscow
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN set -eux; \
 	groupadd -r postgres --gid=999; \
@@ -15,9 +15,8 @@ RUN set -eux; \
 	mkdir -p /etc/postgresql/12/main
 
 RUN apt update
-RUN apt install -y sudo bash bash-completion
-RUN apt install -y lsb-release
-RUN apt install -y wget gnupg2 tzdata
+RUN apt install -y sudo bash bash-completion lsb-release wget gnupg2 tzdata
+#RUN apt install -y wget gnupg2 tzdata
 RUN echo deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main >  /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt update
