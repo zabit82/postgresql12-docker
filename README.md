@@ -1,6 +1,6 @@
 ### How to use
 
-you can edit the file alter_user.sql to create your user and password
+you can edit file alter_user.sql to create your user and password
 
 ##### Build
  - docker build -t postgresql-server:12 ./postgresql12-docker/
