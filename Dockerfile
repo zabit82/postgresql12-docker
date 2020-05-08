@@ -26,11 +26,7 @@ RUN pg_ctlcluster 12 main start && \
     sudo -i -u postgres psql < /tmp/alter_user.sql && \
     pg_ctlcluster 12 main stop
 
-
-
 VOLUME ["/etc/postgresql/12/main", "/var/lib/postgresql/12"]
-
 EXPOSE 5432
 
-#
 CMD su postgres -c "/usr/lib/postgresql/12/bin/postgres -D /var/lib/postgresql/12/main -c config_file=/etc/postgresql/12/main/postgresql.conf"
